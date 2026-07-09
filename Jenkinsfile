@@ -1,29 +1,40 @@
 pipeline {
 
-    agent any
+agent any
 
-    stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/djs4451/python-works.git'
-            }
-        }
+stages {
 
-        stage('Unit Test') {
-            steps {
-                sh 'python3 -m pytest tests/'
-            }
-        }
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                ssh ansible@ansible-controller \
-                "ansible-playbook \
-                /python-works/ansible/deploy.yml"
-                '''
-            }
-        }
-    }
+stage('Unit Test') {
+
+steps {
+
+sh '''
+python3 -m pytest tests/
+'''
+
 }
+
+}
+
+
+stage('Deploy') {
+
+steps {
+
+sh '''
+ssh root@192.168.74.147 \
+"ansible-playbook /python-works/ansible/deploy.yml"
+'''
+
+}
+
+}
+
+
+}
+
+}
+
+
