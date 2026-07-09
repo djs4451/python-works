@@ -1,6 +1,6 @@
 ---
 - name: Deploy Python Application
-  hosts: python_servers
+  hosts: pythonservers
   become: yes
 
   tasks:
