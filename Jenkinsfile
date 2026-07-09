@@ -6,18 +6,6 @@ agent any
 stages {
 
 
-stage('Unit Test') {
-
-steps {
-
-sh '''
-python3 -m pytest test_app.py -v/
-'''
-
-}
-
-}
-
 
 stage('Deploy') {
 

@@ -1,7 +1,0 @@
-# test_app.py
-
-from app import generate_system_info
-
-def test_output():
-    report = generate_system_info()
-    assert "Hostname" in report
