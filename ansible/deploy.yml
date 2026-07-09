@@ -1,0 +1,26 @@
+---
+- name: Deploy Python Application
+  hosts: python_servers
+  become: yes
+
+  tasks:
+
+    - name: Create application directory
+      file:
+        path: /opt/python-app
+        state: directory
+        mode: '0755'
+
+    - name: Copy Python script
+      copy:
+        src: /python-works/app.py
+        dest: /opt/python-app/app.py
+        mode: '0755'
+
+    - name: Execute Python script
+      command: python3 /opt/python-app/app.py
+      register: app_output
+
+    - name: Display output
+      debug:
+        var: app_output.stdout
