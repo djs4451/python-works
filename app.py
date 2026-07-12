@@ -7,6 +7,7 @@ from datetime import datetime
 OUTPUT_FILE = "/tmp/system_info.txt"
 
 def generate_system_info():
+
     return f"""
 ========================================
 System Information Report
@@ -15,7 +16,6 @@ System Information Report
 Hostname : {socket.gethostname()}
 OS       : {platform.system()}
 Release  : {platform.release()}
-Version  : {platform.version()}
 Timestamp: {datetime.now()}
 
 ========================================

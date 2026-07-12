@@ -1,5 +1,5 @@
 ---
-- name: Deploy Python Application
+- name: Deploy Python Artifact
   hosts: pythonservers
   become: yes
 
@@ -9,18 +9,26 @@
       file:
         path: /opt/python-app
         state: directory
-        mode: '0755'
 
-    - name: Copy Python script
+    - name: Copy artifact
       copy:
-        src: /python-works/app.py
-        dest: /opt/python-app/app.py
-        mode: '0755'
+        src: /python-works/python-app.tar.gz
+        dest: /opt/python-app/python-app.tar.gz
 
-    - name: Execute Python script
+    - name: Extract artifact
+      unarchive:
+        src: /opt/python-app/python-app.tar.gz
+        dest: /opt/python-app
+        remote_src: yes
+
+    - name: Execute application
       command: python3 /opt/python-app/app.py
-      register: app_output
 
-    - name: Display output
+    - name: Verify file exists
+      stat:
+        path: /tmp/system_info.txt
+      register: result
+
+    - name: Show status
       debug:
-        var: app_output.stdout
+        var: result.stat.exists
